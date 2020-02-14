@@ -1,0 +1,5 @@
+Exec Mongo
+docker exec -it db-battle-mongo mongo admin
+
+Exec MySQL
+docker exec -it db-battle-mysql mysql -p
