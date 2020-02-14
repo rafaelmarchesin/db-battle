@@ -1,20 +1,16 @@
-/* Estabelecendo a conexão */
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/battle', {useNewUrlParser: true, useUnifiedTopology: true});
+var mysql = require('mysql');
 
-
-/* Retorna se a conexão foi estabelecida com sucesso ou não */
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
+var con = mysql.createConnection({
+  host: "localhost:3306",
+  user: "root",
+  password: "root",
+  database: "battle"
 });
 
-/* Criando o esquema de dados gravados */
-var esquemaCliente = new mongoose.Schema({
-    name: String
-  })
-
-var Cliente = mongoose.model('Cliente', esquemaCliente);
-
-var nomeCliente = new Cliente({ name: 'Artur' });
-console.log(nomeCliente.name); // 'Artur
+con.connect(function(err) {
+  if (err) throw err;
+  con.query("SELECT * FROM customers", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+  });
+});
